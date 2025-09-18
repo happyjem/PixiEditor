@@ -1,0 +1,60 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "build: Desktop Debug ARM64",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "build",
+        "src/PixiEditor.Desktop/PixiEditor.Desktop.csproj",
+        "-c",
+        "Debug",
+        "-p:Platform=ARM64",
+        "-r",
+        "osx-arm64"
+      ],
+  "group": "build",
+  "problemMatcher": [],
+      "presentation": { "reveal": "always" }
+    },
+    {
+      "label": "run: Desktop Debug ARM64",
+      "type": "shell",
+      "dependsOn": "build: Desktop Debug ARM64",
+      "command": "dotnet",
+      "args": [
+        "run",
+        "--project",
+        "src/PixiEditor.Desktop/PixiEditor.Desktop.csproj",
+        "-c",
+        "Debug",
+        "-p:Platform=ARM64",
+        "-r",
+        "osx-arm64"
+      ],
+      "isBackground": false,
+      "problemMatcher": []
+    }
+    ,
+    {
+      "label": "publish: Desktop Debug ARM64",
+      "type": "shell",
+      "command": "dotnet",
+      "args": [
+        "publish",
+        "src/PixiEditor.Desktop/PixiEditor.Desktop.csproj",
+        "-c",
+        "Debug",
+        "-p:Platform=ARM64",
+        "-r",
+        "osx-arm64",
+        "--self-contained",
+        "false"
+      ],
+      "group": "build",
+      "problemMatcher": [],
+      "presentation": { "reveal": "always" }
+    }
+  ]
+}
