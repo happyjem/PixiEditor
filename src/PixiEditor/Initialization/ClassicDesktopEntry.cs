@@ -60,7 +60,20 @@ internal class ClassicDesktopEntry
                 string? file = storageItem.TryGetLocalPath();
                 if (file != null && File.Exists(file))
                 {
-                    mainWindow.DataContext.FileSubViewModel.OpenFromPath(file);
+                    // Defer file opening until after the drawing backend is initialized
+                    Dispatcher.UIThread.Post(() =>
+                    {
+                        if (Drawie.Backend.Core.Bridge.DrawingBackendApi.HasBackend)
+                        {
+                            mainWindow.DataContext.FileSubViewModel.OpenFromPath(file);
+                        }
+                        else
+                        {
+                            // Retry after a short delay if backend not ready yet
+                            Dispatcher.UIThread.Post(() =>
+                                mainWindow.DataContext.FileSubViewModel.OpenFromPath(file), DispatcherPriority.Background);
+                        }
+                    }, DispatcherPriority.Background);
                 }
             }
         }

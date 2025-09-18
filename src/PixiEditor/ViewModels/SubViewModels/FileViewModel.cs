@@ -390,6 +390,13 @@ internal class FileViewModel : SubViewModel<ViewModelMain>
     /// </summary>
     private DocumentViewModel OpenRegularImage(string path, bool associatePath)
     {
+        // Check if drawing backend is initialized before attempting image operations
+        if (!Drawie.Backend.Core.Bridge.DrawingBackendApi.HasBackend)
+        {
+            NoticeDialog.Show("Drawing backend not yet initialized. Please try again in a moment.", "Error");
+            return null;
+        }
+        
         var image = Importer.ImportImage(path, VecI.NegativeOne);
 
         if (image == null) return null;
