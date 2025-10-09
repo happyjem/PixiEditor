@@ -178,7 +178,7 @@ internal partial class LayerControl : UserControl
 
         if (placement is StructureMemberPlacement.Below or StructureMemberPlacement.BelowOutsideFolder)
         {
-            droppedMemberGuids = droppedMemberGuids.Reverse().ToArray();
+            Array.Reverse(droppedMemberGuids);
         }
 
         var document = Layer.Document;

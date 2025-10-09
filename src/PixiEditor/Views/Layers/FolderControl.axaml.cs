@@ -128,7 +128,7 @@ internal partial class FolderControl : UserControl
         if (placement is StructureMemberPlacement.Below or StructureMemberPlacement.BelowOutsideFolder
             or StructureMemberPlacement.Inside)
         {
-            droppedGuids = droppedGuids.Reverse().ToArray();
+            Array.Reverse(droppedGuids);
         }
 
         using var block = document.Operations.StartChangeBlock();
